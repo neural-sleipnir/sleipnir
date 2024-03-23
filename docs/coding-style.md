@@ -82,7 +82,7 @@ enum SpResult spCreateStruct( ... );
 
 ## Command Verbs
 
-Below is a list of many of the verbs currently in use in vigenere_decrypter:
+Below is a list of many of the verbs currently in use in `sleipnir`:
 
 | Verb     | Meaning                                                                              |
 |----------|--------------------------------------------------------------------------------------|
@@ -97,7 +97,7 @@ Below is a list of many of the verbs currently in use in vigenere_decrypter:
 
 ## Standard Prefixes
 
-Prefixes are used in the application to denote specific semantic meaning of vigenere_decrypter names
+Prefixes are used in the application to denote specific semantic meaning of `sleipnir` names
 
 * SP/Sp/sp
   All types, commands, enumerants and C macro definitions in project are prefixed with these two characters,
