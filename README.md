@@ -35,3 +35,11 @@ cmake -S. -Bbuild -DBUILD_TESTING=ON -DCMAKE_BUILD_TYPE=Debug
 cmake --build build --config Debug -j
 cmake --build build --config Debug --target test
 ```
+
+## Documentation
+
+The docs directory contains design and coding style description.
+
+* [Design Doc](docs/design.md) covers how sleipnir works
+  underneath the hood, and why certain design choices were made.
+* [Coding Style](docs/coding-style.md) covers coding style such as naming and explains how to manage allocated object by style.
