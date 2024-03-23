@@ -22,7 +22,7 @@ Example: `SP_HEAP_SIZE`
 Type names are declared with no separator between words. Each word starts with a capital letter,
 and every other character in each word is lower case.
 
-Each type name is prefixed with Vg. This rule applies to all types struct, union, enum.
+Each type name is prefixed with `Sp`. This rule applies to all types struct, union, enum.
 
 Example:
 ```c
