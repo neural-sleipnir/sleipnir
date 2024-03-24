@@ -22,7 +22,7 @@ Before you begin, ensure that you have the following installed on your system:
 
 Follow these steps to build `sleipnir`:
 
-*Build `vigenere_decrypter` command line application:*
+*Build sleipnir*
 ```shell
 git clone https://github.com/neural-sleipnir/sleipnir.git
 cmake -S. -Bbuild -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
