@@ -2,7 +2,7 @@
 
 ## What is Sleipnir?
 
-Sleipnir is a cross-platform C99 library for writing neural networks
+Sleipnir is a cross-platform C99 library to detect CPU cache sharing form 
 
 ![sleipnir.png](./docs/images/sleipnir.png)
 
