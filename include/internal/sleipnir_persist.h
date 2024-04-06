@@ -1,0 +1,8 @@
+//
+// Created by mhohsadze on 02.04.24.
+//
+
+#ifndef SLEIPNIR_SLEIPNIR_PERSIST_H
+#define SLEIPNIR_SLEIPNIR_PERSIST_H
+
+#endif //SLEIPNIR_SLEIPNIR_PERSIST_H
