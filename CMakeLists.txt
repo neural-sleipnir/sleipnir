@@ -4,9 +4,9 @@ if(POLICY CMP0077)
     cmake_policy(SET CMP0077 NEW)
 endif()
 
-project(Sleipnir C)
+project(Sleipnir C ASM)
 
-set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD 11)
 
 include(CheckIncludeFile)
 include(CheckSymbolExists)
@@ -30,8 +30,9 @@ add_library(sleipnir ${SLEIPNIR_HDRS} ${SLEIPNIR_SRCS})
 set_target_properties(sleipnir PROPERTIES PUBLIC_HEADER "${SLEIPNIR_HDRS}")
 target_include_directories(sleipnir
         PUBLIC  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/internal>
 )
-target_link_libraries(sleipnir PUBLIC ${CMAKE_DL_LIBS})
+target_link_libraries(sleipnir PUBLIC ${CMAKE_DL_LIBS} sleipnir_lib)
 add_library(Sleipnir::sleipnir ALIAS sleipnir)
 
 #
@@ -39,7 +40,7 @@ add_library(Sleipnir::sleipnir ALIAS sleipnir)
 #
 
 add_executable(sleipnir_demo ${PROJECT_SOURCE_DIR}/src/utils/sleipnir_demo.c)
-target_link_libraries(sleipnir_demo PRIVATE sleipnir)
+target_link_libraries(sleipnir_demo PRIVATE sleipnir sleipnir_lib)
 add_executable(Sleipnir::sleipnir_demo ALIAS sleipnir_demo)
 
 include(CTest)
@@ -82,6 +83,36 @@ if(BUILD_TESTING)
     endif()
 
     add_subdirectory(test)
+endif()
+
+if(NOT TARGET sleipnir_lib)
+    configure_file(
+            cmake/sleipnir-lib.CMakeLists.txt.in
+            libsleipnir-download/CMakeLists.txt
+    )
+
+    execute_process(
+            COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+            RESULT_VARIABLE result
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/libsleipnir-download)
+
+    if(result)
+        message(FATAL_ERROR "CMake step for libsleipnir failed: ${result}")
+    endif()
+
+    execute_process(
+            COMMAND ${CMAKE_COMMAND} --build .
+            RESULT_VARIABLE result
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/libsleipnir-download)
+
+    if(result)
+        message(FATAL_ERROR "Build step for libsleipnir failed: ${result}")
+    endif()
+
+    # Add libsleipnir directly to build.
+    add_subdirectory(${CMAKE_BINARY_DIR}/libsleipnir-src
+            ${CMAKE_BINARY_DIR}/libsleipnir-build
+            EXCLUDE_FROM_ALL)
 endif()
 
 add_subdirectory(benchmark)

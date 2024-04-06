@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.13)
+
+project(googletest-download NONE)
+
+include(ExternalProject)
+ExternalProject_Add(sleipnir_lib
+  GIT_REPOSITORY    https://github.com/neural-sleipnir/sleipnir-lib.git
+  GIT_TAG           main
+  SOURCE_DIR        "${CMAKE_BINARY_DIR}/libsleipnir-src"
+  BINARY_DIR        "${CMAKE_BINARY_DIR}/libsleipnir-build"
+  CONFIGURE_COMMAND ""
+  BUILD_COMMAND     ""
+  INSTALL_COMMAND   ""
+  TEST_COMMAND      ""
+  CMAKE_ARGS
+    -DBUILD_TESTING=OFF
+)

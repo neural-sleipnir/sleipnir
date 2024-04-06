@@ -12,28 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_THREAD_H
+#define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_THREAD_H
 
-extern void *dlcalloc(size_t num, size_t size);
-extern void *dlfree(void* ptr);
+#include <stdbool.h>
+#include <stdint.h>
 
-int main() {
-  unsigned long long *alloc_buffer = calloc(100000, sizeof(void*));
-  if (alloc_buffer == NULL) {
-    printf("No memory for alloc_buffer");
-    exit(EXIT_FAILURE);
-  }
+struct spThread {
+  int id;
+  int exitStatus;
+  bool isForked;
+  bool isProtected;
+  uint32_t nestingLevel;
+};
 
-  for (int j = 0; j < 100000; ++j) {
-    int r = rand() % 100000;
-    if (alloc_buffer[r] == 0) {
-      alloc_buffer[r] = (unsigned long long) dlcalloc(10, sizeof(int));
-    } else {
-      dlfree((void *)alloc_buffer[r]);
-    }
-  }
+void spThreadSpawn();
+void spThreadJoin();
+void spThreadCancel();
+void spThreadKill();
 
-  free(alloc_buffer);
-  return 0;
-}
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_THREAD_H

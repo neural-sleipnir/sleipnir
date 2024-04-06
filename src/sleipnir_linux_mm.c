@@ -15,6 +15,7 @@
 #include "sleipnir_macros.h"
 
 #if defined(SLEIPNIR_OS_LINUX)
+#include <stdint.h>
 #include <sys/mman.h>
 
 #include "internal/sleipnir_mm.h"
@@ -42,4 +43,16 @@ void *spAllocateCopyOnWrite(size_t size, int fd, void *addr) {
 
   return mmap(addr, size, prot, flags, fd, 0);
 }
+void *spChangeMapping(bool isShared, int prot, void *addr,
+                      size_t len, int fd, int offset) {
+  int flags = isShared ? MAP_SHARED : MAP_PRIVATE;
+  flags |= MAP_FIXED;
+
+  return mmap(addr, len, prot, flags, fd, offset);
+}
+void *spChangeMappingToShared(int prot, void *addr, size_t len, int fd) {
+  int  offset = (intptr_t)addr - (intptr_t)base();
+  return spChangeMapping(true, prot, addr, len, fd);
+}
+
 #endif  // defined(SLEIPNIR_OS_LINUX)

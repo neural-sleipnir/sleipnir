@@ -5,7 +5,7 @@
 include_directories(../include)
 
 add_library(all_libraries
-        ../src/sleipnir.c
+        ../src/sleipnir_thread.c
 )
 
 #
