@@ -12,7 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_SANITY_CHECK_H
+#define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_SANITY_CHECK_H
 
-#include "sleipnir_thread.h"
+#include <stddef.h>
+#include <stdbool.h>
+
+bool spSanityCheck(size_t *magic);
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_SANITY_CHECK_H

@@ -12,7 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_PAGEINFO_H
+#define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_PAGEINFO_H
 
-#include "sleipnir_thread.h"
+#include <stdint.h>
+#include <stdbool.h>
+
+struct SpPageInfo {
+  size_t pageNo;
+  int version;
+  void* pageStart;
+  void* origTwinPage;
+  void* tempTwinPage;
+  unsigned long* wordChanges;
+  bool shared;
+  bool alloced;
+  bool hasTwinPage;
+};
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_PAGEINFO_H

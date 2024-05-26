@@ -12,18 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef SLEIPNIR_SLEIPNIR_MM_H
-#define SLEIPNIR_SLEIPNIR_MM_H
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_MM_H
+#define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_MM_H
 
 #include <stdbool.h>
 #include <stddef.h>
 
-void *spAllocateShared(size_t size, int fd, void *addr);
-int spDeallocateShared(void *ptr, size_t size);
-void *spAllocateCopyOnWrite(size_t size, int fd, void *addr);
-void *spChangeMapping(bool isShared, int prot, void *addr,
-                      size_t len, int fd, int offset);
+void *spSystemAllocateShared(size_t size, int fd, void *addr);
+int spSystemDeallocateShared(void *ptr, size_t size);
+void *spSystemAllocateCopyOnWrite(size_t size, int fd, void *addr);
+void *spSystemChangeMapping(bool isShared, int prot, void *addr, size_t len,
+                            int fd, int offset);
 
-void *spChangeMappingToShared(int prot, void *addr, size_t len, int fd);
+void *spSystemChangeMappingToShared(int prot, void *addr, size_t len, int fd);
 
-#endif  // SLEIPNIR_SLEIPNIR_MM_H
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_MM_H

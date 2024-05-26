@@ -12,7 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_PRIVATE_HEAP_H
+#define SLEIPNIR_INCLUDE_INTERNAL_PRIVATE_HEAP_H
 
-#include "sleipnir_thread.h"
+#include <stddef.h>
+
+void *spPrivateHeapAllocate(size_t size);
+void spPrivateHeapFree(void *ptr);
+size_t spPrivateHeapGetSize(void *ptr);
+void *spPrivateHeapReallocate(void *ptr, size_t size);
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_PRIVATE_HEAP_H

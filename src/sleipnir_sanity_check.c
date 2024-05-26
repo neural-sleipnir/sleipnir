@@ -12,7 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#include "internal/sleipnir_sanity_check.h"
 
-#include "sleipnir_thread.h"
+#include "internal/sleipnir_constants.h"
+#include "sleipnir_macros.h"
+
+#ifndef NDEBUG
+#if defined(SLEIPNIR_OS_LINUX)
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+bool spSanityCheck(size_t *magic) {
+  if (*magic != SLEIPNIR_MAGIC) {
+    fprintf(stderr,
+            "Sanity check failed in process %d. Current _magic %zx at %p\n",
+            getpid(), *magic, &magic);
+    abort();
+  }
+  return true;
+}
+#else
+bool spSanityCheck(size_t *magic) {
+  (void)magic;
+  return true;
+}
+#endif  // defined(SLEIPNIR_OS_LINUX)
+#endif  // NDEBUG
