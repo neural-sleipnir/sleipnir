@@ -12,7 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_TIMEINFO_H
+#define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_TIMEINFO_H
 
-#include "sleipnir_thread.h"
+struct SpTimeInfo;
+
+void spTimeInfoStart(struct SpTimeInfo *ti);
+double spTimeInfoStop(struct SpTimeInfo *begin, struct SpTimeInfo *end);
+unsigned long spTimeInfoElapsed2ms(double elapsed);
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_TIMEINFO_H

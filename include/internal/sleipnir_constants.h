@@ -12,7 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_CONSTANTS_H
+#define SLEIPNIR_INCLUDE_INTERNAL_CONSTANTS_H
 
-#include "sleipnir_thread.h"
+#define SLEIPNIR_PAGE_SIZE (4096)
+#define PAGE_SIZE_MASK (SLEIPNIR_PAGE_SIZE -1)
+#define SLEIPNIR_CACHE_LINE_SIZE (64)
+#define SLEIPNIR_CACHES_PER_PAGE (64)
+#define SLEIPNIR_MIN_INVALIDATES_CARE (10)
+#define SLEIPNIR_MAGIC (0xCAFEBABE)
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_CONSTANTS_H

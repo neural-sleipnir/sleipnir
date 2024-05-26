@@ -12,7 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#include "internal/sleipnir_memory.h"
 
-#include "sleipnir_thread.h"
+enum SpResult SpMemoryCreate(struct SpMemory *pMemory) {
+  pMemory->doChecking = 0;
+  pMemory->heapId = -1;
+  pMemory->protection = true;
+  pMemory->timerStarted = false;
+  return SP_SUCCESS;
+}

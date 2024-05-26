@@ -12,7 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_HEAP_H
+#define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_HEAP_H
 
-#include "sleipnir_thread.h"
+#include <stddef.h>
+
+#include "sleipnir_common.h"
+
+struct SpHeap;
+
+enum SpResult SpHeapCreate(struct SpHeap *pHeap);
+void *SpHeapMalloc(struct SpHeap *pHeap, size_t size);
+void SpHeapInit(struct SpHeap *pHeap);
+void* spHeapGetEnd(struct SpHeap *pHeap);
+void SpHeapDestroy(struct SpHeap *pHeap);
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_HEAP_H

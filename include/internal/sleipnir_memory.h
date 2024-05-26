@@ -12,7 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_MEMORY_H
+#define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_MEMORY_H
 
-#include "sleipnir_thread.h"
+#include <stdbool.h>
+
+#include "sleipnir_common.h"
+
+struct SpMemory {
+    int heapId;
+    bool timerStarted;
+    unsigned long doChecking;
+    bool protection;
+};
+
+enum SpResult SpMemoryCreate(struct SpMemory *pMemory);
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_MEMORY_H

@@ -12,7 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
-
-#include "sleipnir_thread.h"
+#include "internal/sleipnir_internal_heap.h"

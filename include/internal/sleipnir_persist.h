@@ -15,11 +15,27 @@
 #ifndef SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_PERSIST_H
 #define SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_PERSIST_H
 
-struct spPersist {
-  void *pInfo;
+#include <stddef.h>
+
+#include "sleipnir_common.h"
+
+struct SpPersistCreateInfo {
+  size_t numElements;
+  size_t typeSize;
+  void *address;
+  size_t addressSize;
 };
 
-void spPersistBeginTransaction(struct spPersist *pPersist);
-void spHandleWriteOperation(void *addr);
+struct SpPersist;
 
-#endif //SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_PERSIST_H
+enum SpResult spPersistCreate(struct SpPersist *pPersist,
+                              struct SpPersistCreateInfo *pInfo);
+void spPersistDestroy(struct SpPersist *pPersist);
+void spPersistBeginTransaction(struct SpPersist *pPersist);
+void spPersistHandleWriteAccess(struct SpPersist *pPersist, void *pAddr);
+void spPersistCommit(struct SpPersist *pPersist);
+void *spPersistGetBase(struct SpPersist *pPersist);
+size_t spPersistGetSize(struct SpPersist *pPersist);
+size_t spPersistGetSizeof();
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_SLEIPNIR_PERSIST_H

@@ -12,7 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_WORD_INFO_H
+#define SLEIPNIR_INCLUDE_INTERNAL_WORD_INFO_H
 
-#include "sleipnir_thread.h"
+struct SpWordInfo {
+  unsigned short tid;
+  unsigned short version;
+};
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_WORD_INFO_H

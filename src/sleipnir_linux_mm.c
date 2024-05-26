@@ -20,7 +20,20 @@
 
 #include "internal/sleipnir_mm.h"
 
-void *spAllocateShared(size_t size, int fd, void *addr) {
+void *spSystemAllocateShared(size_t size, int fd, void *addr) {
+  int flags = 0;
+  int prot = PROT_READ | PROT_WRITE;
+
+  flags |= ((fd == -1) ? MAP_ANONYMOUS : 0);
+  flags |= ((addr != NULL) ? MAP_FIXED : 0);
+  flags |= MAP_SHARED;
+
+  return mmap(addr, size, prot, flags, fd, 0);
+}
+
+int spSystemDeallocateShared(void *ptr, size_t size) { return munmap(ptr, size); }
+
+void *spSystemAllocateCopyOnWrite(size_t size, int fd, void *addr) {
   int flags = 0;
   int prot = PROT_READ | PROT_WRITE;
 
@@ -31,28 +44,17 @@ void *spAllocateShared(size_t size, int fd, void *addr) {
   return mmap(addr, size, prot, flags, fd, 0);
 }
 
-int spDeallocateShared(void *ptr, size_t size) { return munmap(ptr, size); }
-
-void *spAllocateCopyOnWrite(size_t size, int fd, void *addr) {
-  int flags = 0;
-  int prot = PROT_READ | PROT_WRITE;
-
-  flags |= ((fd == -1) ? MAP_ANONYMOUS : 0);
-  flags |= ((addr != NULL) ? MAP_FIXED : 0);
-  flags |= MAP_SHARED;
-
-  return mmap(addr, size, prot, flags, fd, 0);
-}
-void *spChangeMapping(bool isShared, int prot, void *addr,
+void *spSystemChangeMapping(bool isShared, int prot, void *addr,
                       size_t len, int fd, int offset) {
   int flags = isShared ? MAP_SHARED : MAP_PRIVATE;
   flags |= MAP_FIXED;
 
   return mmap(addr, len, prot, flags, fd, offset);
 }
-void *spChangeMappingToShared(int prot, void *addr, size_t len, int fd) {
+
+void *spSystemChangeMappingToShared(int prot, void *addr, size_t len, int fd) {
   int  offset = (intptr_t)addr - (intptr_t)base();
-  return spChangeMapping(true, prot, addr, len, fd);
+  return spSystemChangeMapping(true, prot, addr, len, fd, offset);
 }
 
 #endif  // defined(SLEIPNIR_OS_LINUX)

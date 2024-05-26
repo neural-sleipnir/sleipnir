@@ -12,7 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <stddef.h>
-#include <sys/mman.h>
+#ifndef SLEIPNIR_INCLUDE_INTERNAL_OBJ_HEADER_H
+#define SLEIPNIR_INCLUDE_INTERNAL_OBJ_HEADER_H
 
-#include "sleipnir_thread.h"
+#include <stddef.h>
+#include <stdbool.h>
+
+struct SpObjHeader;
+
+size_t spObjHeaderGetSizeof();
+size_t spObjHeaderGetSize(struct SpObjHeader *pObjHeader);
+bool spObjHeaderIsValidObject(struct SpObjHeader *pObjHeader);
+bool spObjHeaderIsValidMagic(struct SpObjHeader *pObjHeader);
+
+#endif  // SLEIPNIR_INCLUDE_INTERNAL_OBJ_HEADER_H
